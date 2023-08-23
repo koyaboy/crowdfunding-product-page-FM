@@ -1,4 +1,5 @@
 import Header from "./components/Header"
+import MainContent from "./containers/MainContent"
 
 function App() {
 
@@ -6,7 +7,7 @@ function App() {
     <>
       <div className="">
         <Header />
-        App
+        <MainContent />
       </div>
     </>
   )

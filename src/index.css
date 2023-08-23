@@ -11,5 +11,12 @@
     background-image: url("../src/assets/image-hero-mobile.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 60%;
+    border-radius: 999px;
+    background-color: hsl(176, 50%, 47%);
 }
