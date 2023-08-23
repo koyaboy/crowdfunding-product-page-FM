@@ -12,7 +12,8 @@ export default {
       "black": "hsl(0, 0%, 0%)",
       "dark-gray": "hsl(0, 0%, 48%)",
       "yellow": "yellow",
-      "white": "white"
+      "white": "white",
+      "red": "red",
     },
   },
   plugins: [],

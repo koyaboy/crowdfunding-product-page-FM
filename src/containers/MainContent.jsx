@@ -7,13 +7,13 @@ const MainContent = () => {
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
 
-            <div className='w-11/12  relative -top-14' >
+            <div className='w-11/12  relative -top-16' >
 
                 <div className='text-center bg-white flex flex-col items-center mb-4 rounded-lg'>
                     <img
                         src={logo}
                         alt="logo-mastercraft"
-                        className='relative -top-6'
+                        className='relative -top-6 '
                     />
                     <h2 className='text-2xl w-4/5 font-bold mb-4'>Mastercraft Bamboo Monitor Riser </h2>
                     <p className='mb-3 text-dark-gray'>
