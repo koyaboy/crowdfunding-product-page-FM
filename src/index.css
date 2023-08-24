@@ -21,7 +21,7 @@
     background-color: hsl(176, 50%, 47%);
 }
 
-.overlay-header .active,
+.overlay-header.active,
 .overlay-modal.active {
     position: fixed;
     width: 100%;

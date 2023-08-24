@@ -23,7 +23,7 @@ const Header = () => {
         <>
             <div className='overlay-header' ref={overlayRef}></div>
             <header className='header-image flex flex-col h-80  px-4  py-6'>
-                <div className='flex justify-between items-center mb-12 z-20'>
+                <div className='flex justify-between items-center mb-11 z-20'>
                     <img
                         src={logo}
                         alt="crowdfund-logo"

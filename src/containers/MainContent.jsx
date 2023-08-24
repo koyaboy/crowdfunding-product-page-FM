@@ -6,7 +6,8 @@ import closeModalIcon from "../assets/icon-close-modal.svg"
 import iconCheck from "../assets/icon-check.svg"
 
 const MainContent = () => {
-    const [toggleModal, setToggleModal] = useState(true)
+    const [toggleModal, setToggleModal] = useState(false)
+    const [selectedModal, setSelectedModal] = useState("")
     const overlayRef = useRef(null)
 
     const openModal = () => {
@@ -21,6 +22,23 @@ const MainContent = () => {
             overlayRef.current.classList.remove("active")
         }
     }
+
+    const selectBlackEdition = () => {
+        setSelectedModal("Black Edition Stand")
+        setToggleModal(true)
+        if (overlayRef) {
+            overlayRef.current.classList.add("active")
+        }
+    }
+
+    const selectBambooStand = () => {
+        setSelectedModal("Bamboo Stand")
+        setToggleModal(true)
+        if (overlayRef) {
+            overlayRef.current.classList.add("active")
+        }
+    }
+
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
 
@@ -90,7 +108,12 @@ const MainContent = () => {
                             you'll be added to a special Backer member list
                         </p>
                         <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-                        <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Select Reward</button>
+                        <button
+                            className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'
+                            onClick={() => selectBambooStand()}
+                        >
+                            Select Reward
+                        </button>
 
                     </div>
 
@@ -101,7 +124,12 @@ const MainContent = () => {
                             member list. Shipping is included.
                         </p>
                         <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                        <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Select Reward</button>
+                        <button
+                            className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'
+                            onClick={() => selectBlackEdition()}
+                        >
+                            Select Reward
+                        </button>
 
                     </div>
 
@@ -120,7 +148,8 @@ const MainContent = () => {
 
             {/* SELECTED MODAL */}
             <div className='overlay-modal' ref={overlayRef}></div>
-            {toggleModal &&
+            {
+                toggleModal &&
 
                 <div className='absolute bg-white rounded-md top-20 w-11/12 px-4 py-6 z-40'>
                     <div className='flex justify-between items-center mb-6'>
@@ -136,7 +165,14 @@ const MainContent = () => {
 
                     <div className='px-5 py-8 border border-dark-gray border-opacity-50 rounded-lg mb-4'>
                         <div className='flex gap-5 items-center mb-8'>
-                            <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
+                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
+                            <input
+                                type="radio"
+                                name="selectedModal"
+                                value="Pledge with no reward"
+                                checked={selectedModal === "Pledge with no reward"}
+                                onChange={() => setSelectedModal("Pledge with no reward")}
+                            />
                             <h3 className='font-bold text-sm'>Pledge with no reward</h3>
                         </div>
                         <p className='text-dark-gray w-11/12'> Choose to support us without a reward if you simply believe in our project. As a backer,
@@ -146,7 +182,15 @@ const MainContent = () => {
 
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
                         <div className='flex gap-5 items-center mb-8'>
-                            <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
+                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
+                             */}
+                            <input
+                                type="radio"
+                                name="selectedModal"
+                                value="Bamboo Stand"
+                                checked={selectedModal === "Bamboo Stand"}
+                                onChange={() => setSelectedModal("Bamboo Stand")}
+                            />
                             <div>
                                 <h3 className='font-bold'> Bamboo Stand</h3>
                                 <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
@@ -161,7 +205,14 @@ const MainContent = () => {
 
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
                         <div className='flex gap-5 items-center mb-8'>
-                            <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
+                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
+                            <input
+                                type="radio"
+                                name="selectedModal"
+                                value="Black Edition Stand"
+                                checked={selectedModal === "Black Edition Stand"}
+                                onChange={() => setSelectedModal("Black Edition Stand")}
+                            />
                             <div>
                                 <h3 className='font-bold'>  Black Edition Stand</h3>
                                 <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
@@ -189,7 +240,8 @@ const MainContent = () => {
                         <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>0</span><span className='text-dark-gray'> left</span></p>
                     </div>
 
-                </div>}
+                </div>
+            }
 
 
 
