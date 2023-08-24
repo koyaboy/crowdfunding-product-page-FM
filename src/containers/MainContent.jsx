@@ -1,13 +1,19 @@
 import React, { useState, useRef } from 'react'
 
+import StyledButton from '../components/StyledButton'
+
 import logo from "../assets/logo-mastercraft.svg"
 import bookmark from "../assets/icon-bookmark.svg"
 import closeModalIcon from "../assets/icon-close-modal.svg"
 import iconCheck from "../assets/icon-check.svg"
 
 const MainContent = () => {
+
+    // let amount = "89,914"
+    // let backers = 5007
     const [toggleModal, setToggleModal] = useState(false)
     const [selectedModal, setSelectedModal] = useState("")
+    const [isCompleted, setIsCompleted] = useState(false)
     const overlayRef = useRef(null)
 
     const openModal = () => {
@@ -39,6 +45,22 @@ const MainContent = () => {
         }
     }
 
+    const SelectModalEnd = () => {
+        setToggleModal(false)
+        setIsCompleted(true)
+        if (overlayRef) {
+            overlayRef.current.classList.add("active")
+        }
+    }
+
+    const CompleteModal = () => {
+        setIsCompleted(false)
+        setSelectedModal("")
+        if (overlayRef) {
+            overlayRef.current.classList.remove("active")
+        }
+    }
+
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
 
@@ -54,12 +76,10 @@ const MainContent = () => {
                         A beautiful & handcrafted monitor stand to reduce neck and eye strain.
                     </p>
                     <div className='flex items-center gap-2 mb-8'>
-                        <button
-                            className='bg-moderate-cyan rounded-3xl px-10 py-3 text-white'
-                            onClick={() => openModal()}
-                        >
-                            Back this project
-                        </button>
+                        <StyledButton
+                            content="Back this project"
+                            onClick={openModal}
+                        />
                         <button>
                             <img
                                 src={bookmark}
@@ -108,13 +128,10 @@ const MainContent = () => {
                             you'll be added to a special Backer member list
                         </p>
                         <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-                        <button
-                            className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'
-                            onClick={() => selectBambooStand()}
-                        >
-                            Select Reward
-                        </button>
-
+                        <StyledButton
+                            content="Select Reward"
+                            onClick={selectBambooStand}
+                        />
                     </div>
 
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
@@ -124,13 +141,10 @@ const MainContent = () => {
                             member list. Shipping is included.
                         </p>
                         <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                        <button
-                            className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'
-                            onClick={() => selectBlackEdition()}
-                        >
-                            Select Reward
-                        </button>
-
+                        <StyledButton
+                            content="Select Reward"
+                            onClick={selectBlackEdition}
+                        />
                     </div>
 
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6 opacity-50'>
@@ -212,7 +226,10 @@ const MainContent = () => {
                                         type="text"
                                         className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
                                     />
-                                    <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Continue</button>
+                                    <StyledButton
+                                        content="Continue"
+                                        onClick={SelectModalEnd}
+                                    />
                                 </div>
                             </div>
                         ) :
@@ -271,7 +288,10 @@ const MainContent = () => {
                                             type="text"
                                             className='border border-dark-gray font-bold w-32 h-10 rounded-3xl px-9'
                                         />
-                                        <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Continue</button>
+                                        <StyledButton
+                                            content="Continue"
+                                            onClick={SelectModalEnd}
+                                        />
                                     </div>
                                 </div>
                             )
@@ -301,27 +321,6 @@ const MainContent = () => {
                             )
                     }
 
-                    {/* <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                        <div className='flex gap-5 items-center mb-8'>
-                            <input
-                                type="radio"
-                                name="selectedModal"
-                                value="Black Edition Stand"
-                                checked={selectedModal === "Black Edition Stand"}
-                                onChange={() => setSelectedModal("Black Edition Stand")}
-                            />
-                            <div>
-                                <h3 className='font-bold'>  Black Edition Stand</h3>
-                                <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
-                            </div>
-                        </div>
-
-                        <p className='text-dark-gray mb-6'>You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-                            member list. Shipping is included.
-                        </p>
-                        <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                    </div> */}
-
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6 opacity-50'>
                         <div className='flex gap-5 items-center mb-8'>
                             <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
@@ -338,6 +337,26 @@ const MainContent = () => {
                     </div>
 
                 </div>
+            }
+
+            {isCompleted && (
+                <div className='bg-white flex flex-col items-center px-4 py-8 w-11/12 rounded-xl absolute top-40 z-50'>
+                    <img
+                        src={iconCheck}
+                        alt="icon-check"
+                        className='mb-6'
+                    />
+                    <div className='font-bold text-xl mb-6'>Thanks for your support!</div>
+                    <p className='mb-6 text-center text-dark-gray'>  Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get
+                        an email once our campaign is completed.
+                    </p>
+                    <StyledButton
+                        content="Got it !"
+                        onClick={CompleteModal}
+                    />
+                </div>
+            )
+
             }
 
 
