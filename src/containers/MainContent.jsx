@@ -173,39 +173,136 @@ const MainContent = () => {
                                 checked={selectedModal === "Pledge with no reward"}
                                 onChange={() => setSelectedModal("Pledge with no reward")}
                             />
-                            <h3 className='font-bold text-sm'>Pledge with no reward</h3>
+                            <h3 className='font-bold'>Pledge with no reward</h3>
                         </div>
                         <p className='text-dark-gray w-11/12'> Choose to support us without a reward if you simply believe in our project. As a backer,
                             you will be signed up to receive product updates via email.
                         </p>
                     </div>
 
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                        <div className='flex gap-5 items-center mb-8'>
-                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
-                             */}
-                            <input
-                                type="radio"
-                                name="selectedModal"
-                                value="Bamboo Stand"
-                                checked={selectedModal === "Bamboo Stand"}
-                                onChange={() => setSelectedModal("Bamboo Stand")}
-                            />
-                            <div>
-                                <h3 className='font-bold'> Bamboo Stand</h3>
-                                <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
+
+                    {selectedModal === "Bamboo Stand" ?
+                        (
+                            <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
+                                <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
+                                    <input
+                                        type="radio"
+                                        name="selectedModal"
+                                        value="Bamboo Stand"
+                                        checked={selectedModal === "Bamboo Stand"}
+                                        onChange={() => setSelectedModal("Bamboo Stand")}
+                                    />
+                                    <div>
+                                        <h3 className='font-bold'> Bamboo Stand</h3>
+                                        <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
+                                    </div>
+                                </div>
+
+                                <p className='text-dark-gray mb-6 px-5'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
+                                    you'll be added to a special Backer member list
+                                </p>
+                                <p className='flex gap-2 items-center mb-2 px-5'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
+
+                                <hr className='text-dark-gray mb-6' />
+                                <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
+
+                                <div className=' relative flex justify-between items-center mb-4 px-5'>
+                                    <div className='absolute left-10 text-dark-gray'>$</div>
+                                    <input
+                                        type="text"
+                                        className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
+                                    />
+                                    <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Continue</button>
+                                </div>
                             </div>
-                        </div>
+                        ) :
+                        (
+                            <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
+                                <div className='flex gap-5 items-center mb-8'>
+                                    <input
+                                        type="radio"
+                                        name="selectedModal"
+                                        value="Bamboo Stand"
+                                        checked={selectedModal === "Bamboo Stand"}
+                                        onChange={() => setSelectedModal("Bamboo Stand")}
+                                    />
+                                    <div>
+                                        <h3 className='font-bold'> Bamboo Stand</h3>
+                                        <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
+                                    </div>
+                                </div>
 
-                        <p className='text-dark-gray mb-6'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-                            you'll be added to a special Backer member list
-                        </p>
-                        <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-                    </div>
+                                <p className='text-dark-gray mb-6'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
+                                    you'll be added to a special Backer member list
+                                </p>
+                                <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
+                            </div>
+                        )}
 
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
+                    {
+                        selectedModal === "Black Edition Stand" ?
+                            (
+                                <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
+                                    <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
+                                        <input
+                                            type="radio"
+                                            name="selectedModal"
+                                            value="Bamboo Stand"
+                                            checked={selectedModal === "Black Edition Stand"}
+                                            onChange={() => setSelectedModal("Black Edition Stand")}
+                                        />
+                                        <div>
+                                            <h3 className='font-bold'> Black Edition Stand</h3>
+                                            <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
+                                        </div>
+                                    </div>
+
+                                    <p className='text-dark-gray mb-6 px-5'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
+                                        you'll be added to a special Backer member list
+                                    </p>
+                                    <p className='flex gap-2 items-center mb-2 px-5'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
+
+                                    <hr className='text-dark-gray mb-6' />
+                                    <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
+
+                                    <div className=' relative flex justify-between items-center mb-4 px-5'>
+                                        <div className='absolute left-10 text-dark-gray'>$</div>
+                                        <input
+                                            type="text"
+                                            className='border border-dark-gray font-bold w-32 h-10 rounded-3xl px-9'
+                                        />
+                                        <button className='bg-moderate-cyan rounded-3xl px-8 py-3 text-white'>Continue</button>
+                                    </div>
+                                </div>
+                            )
+                            :
+                            (
+                                <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
+                                    <div className='flex gap-5 items-center mb-8'>
+                                        {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
+                                        <input
+                                            type="radio"
+                                            name="selectedModal"
+                                            value="Black Edition Stand"
+                                            checked={selectedModal === "Black Edition Stand"}
+                                            onChange={() => setSelectedModal("Black Edition Stand")}
+                                        />
+                                        <div>
+                                            <h3 className='font-bold'>  Black Edition Stand</h3>
+                                            <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
+                                        </div>
+                                    </div>
+
+                                    <p className='text-dark-gray mb-6'>You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
+                                        member list. Shipping is included.
+                                    </p>
+                                    <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
+                                </div>
+                            )
+                    }
+
+                    {/* <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
                         <div className='flex gap-5 items-center mb-8'>
-                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
                             <input
                                 type="radio"
                                 name="selectedModal"
@@ -223,7 +320,7 @@ const MainContent = () => {
                             member list. Shipping is included.
                         </p>
                         <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                    </div>
+                    </div> */}
 
                     <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6 opacity-50'>
                         <div className='flex gap-5 items-center mb-8'>
