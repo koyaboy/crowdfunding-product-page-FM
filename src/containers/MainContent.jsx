@@ -1,3 +1,6 @@
+// bookmarks, active states, progress bar, desktop design
+
+
 import React, { useState, useRef } from 'react'
 
 import StyledButton from '../components/StyledButton'
@@ -8,12 +11,13 @@ import closeModalIcon from "../assets/icon-close-modal.svg"
 import iconCheck from "../assets/icon-check.svg"
 
 const MainContent = () => {
-
-    // let amount = "89,914"
-    // let backers = 5007
+    const [amount, setAmount] = useState("89,914")
+    const [backers, setBackers] = useState("5,007")
     const [toggleModal, setToggleModal] = useState(false)
     const [selectedModal, setSelectedModal] = useState("")
     const [isCompleted, setIsCompleted] = useState(false)
+    const [pledge, setPledge] = useState("")
+
     const overlayRef = useRef(null)
 
     const openModal = () => {
@@ -21,19 +25,12 @@ const MainContent = () => {
         if (overlayRef) {
             overlayRef.current.classList.add("active")
         }
+        window.scroll({ top: "0", behavior: "smooth" })
     }
     const closeModal = () => {
         setToggleModal(false)
         if (overlayRef) {
             overlayRef.current.classList.remove("active")
-        }
-    }
-
-    const selectBlackEdition = () => {
-        setSelectedModal("Black Edition Stand")
-        setToggleModal(true)
-        if (overlayRef) {
-            overlayRef.current.classList.add("active")
         }
     }
 
@@ -43,6 +40,16 @@ const MainContent = () => {
         if (overlayRef) {
             overlayRef.current.classList.add("active")
         }
+        window.scroll({ top: "250", behavior: "smooth" })
+    }
+
+    const selectBlackEdition = () => {
+        setSelectedModal("Black Edition Stand")
+        setToggleModal(true)
+        if (overlayRef) {
+            overlayRef.current.classList.add("active")
+        }
+        window.scroll({ top: "500", behavior: "smooth" })
     }
 
     const SelectModalEnd = () => {
@@ -51,15 +58,32 @@ const MainContent = () => {
         if (overlayRef) {
             overlayRef.current.classList.add("active")
         }
+        setAmount((prevAmount) => {
+            if (pledge > 0) {
+                prevAmount = parseInt(prevAmount?.replace(/,/g, ""));
+                const newAmount = prevAmount + parseInt(pledge);
+                return newAmount.toLocaleString();
+            } else {
+                return prevAmount
+            }
+        })
+
+        setBackers((prevBackers) => (parseInt(prevBackers.replace(/,/g, "")) + 1).toLocaleString())
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+
 
     const CompleteModal = () => {
         setIsCompleted(false)
         setSelectedModal("")
+        setPledge("")
         if (overlayRef) {
             overlayRef.current.classList.remove("active")
         }
     }
+
 
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
@@ -80,23 +104,25 @@ const MainContent = () => {
                             content="Back this project"
                             onClick={openModal}
                         />
-                        <button>
-                            <img
-                                src={bookmark}
-                                alt="bookmark" />
-                        </button>
+
+
+                        <img
+                            src={bookmark}
+                            alt="bookmark"
+                        />
+
                     </div>
                 </div>
 
                 <div className='flex flex-col bg-white px-3 mb-4 rounded-lg'>
                     <div className='text-center py-5'>
                         <div className='mb-4'>
-                            <h2 className='text-2xl font-bold'>$89,914 </h2>
+                            <h2 className='text-2xl font-bold'>{amount}</h2>
                             <p className='text-dark-gray text-sm mb-4'>of $100,000 backed</p>
                             <hr className='w-1/5 ml-auto mr-auto text-dark-gray' />
                         </div>
                         <div className='mb-4'>
-                            <h2 className='text-2xl font-bold'>5,007</h2>
+                            <h2 className='text-2xl font-bold'>{backers}</h2>
                             <p className='text-dark-gray text-sm mb-4'>total backers</p>
                             <hr className='w-1/5 ml-auto mr-auto text-dark-gray' />
                         </div>
@@ -177,22 +203,67 @@ const MainContent = () => {
                         Monitor Riser out in the world?
                     </p>
 
-                    <div className='px-5 py-8 border border-dark-gray border-opacity-50 rounded-lg mb-4'>
-                        <div className='flex gap-5 items-center mb-8'>
-                            {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
-                            <input
-                                type="radio"
-                                name="selectedModal"
-                                value="Pledge with no reward"
-                                checked={selectedModal === "Pledge with no reward"}
-                                onChange={() => setSelectedModal("Pledge with no reward")}
-                            />
-                            <h3 className='font-bold'>Pledge with no reward</h3>
-                        </div>
-                        <p className='text-dark-gray w-11/12'> Choose to support us without a reward if you simply believe in our project. As a backer,
-                            you will be signed up to receive product updates via email.
-                        </p>
-                    </div>
+
+
+
+
+                    {selectedModal === "Pledge with no reward" ?
+                        (
+                            <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
+                                <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
+                                    <input
+                                        type="radio"
+                                        name="selectedModal"
+                                        value="Pledge with no reward"
+                                        checked={selectedModal === "Pledge with no reward"}
+                                        onChange={() => setSelectedModal("Pledge with no reward")}
+                                    />
+                                    <h3 className='font-bold'>Pledge with no reward</h3>
+                                </div>
+                                <p className='text-dark-gray mb-6 px-5'> Choose to support us without a reward if you simply believe in our project. As a backer,
+                                    you will be signed up to receive product updates via email.
+                                </p>
+
+                                <hr className='text-dark-gray mb-6' />
+                                <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
+
+                                <div className=' relative flex justify-between items-center mb-4 px-5'>
+                                    <div className='absolute left-10 text-dark-gray'>$</div>
+                                    <input
+                                        type="text"
+                                        className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
+                                        value={0}
+                                        readOnly
+                                    />
+                                    <StyledButton
+                                        content="Continue"
+                                        onClick={SelectModalEnd}
+                                    />
+                                </div>
+
+                            </div>
+                        ) :
+                        (
+                            <div className='px-5 py-8 border border-dark-gray border-opacity-50 rounded-lg mb-4'>
+                                <div className='flex gap-5 items-center mb-8'>
+                                    {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
+                                    <input
+                                        type="radio"
+                                        name="selectedModal"
+                                        value="Pledge with no reward"
+                                        checked={selectedModal === "Pledge with no reward"}
+                                        onChange={() => setSelectedModal("Pledge with no reward")}
+                                    />
+                                    <h3 className='font-bold'>Pledge with no reward</h3>
+                                </div>
+                                <p className='text-dark-gray w-11/12'> Choose to support us without a reward if you simply believe in our project. As a backer,
+                                    you will be signed up to receive product updates via email.
+                                </p>
+                            </div>
+                        )}
+
+
+
 
 
                     {selectedModal === "Bamboo Stand" ?
@@ -225,6 +296,8 @@ const MainContent = () => {
                                     <input
                                         type="text"
                                         className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
+                                        value={pledge}
+                                        onChange={(e) => setPledge(e.target.value)}
                                     />
                                     <StyledButton
                                         content="Continue"
@@ -287,6 +360,8 @@ const MainContent = () => {
                                         <input
                                             type="text"
                                             className='border border-dark-gray font-bold w-32 h-10 rounded-3xl px-9'
+                                            value={pledge}
+                                            onChange={(e) => setPledge(e.target.value)}
                                         />
                                         <StyledButton
                                             content="Continue"
@@ -299,7 +374,6 @@ const MainContent = () => {
                             (
                                 <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
                                     <div className='flex gap-5 items-center mb-8'>
-                                        {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
                                         <input
                                             type="radio"
                                             name="selectedModal"
@@ -358,11 +432,6 @@ const MainContent = () => {
             )
 
             }
-
-
-
-
-
         </main >
     )
 }
