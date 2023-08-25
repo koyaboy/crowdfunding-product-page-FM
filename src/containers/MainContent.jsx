@@ -3,12 +3,16 @@
 
 import React, { useState, useRef } from 'react'
 
+import StatsDisplay from '../components/StatsDisplay'
+import RewardOption from '../components/RewardOption'
+import SelectModal from '../components/SelectModal'
+import ThankYouModal from '../components/ThankYouModal'
 import StyledButton from '../components/StyledButton'
 
 import logo from "../assets/logo-mastercraft.svg"
 import bookmark from "../assets/icon-bookmark.svg"
 import closeModalIcon from "../assets/icon-close-modal.svg"
-import iconCheck from "../assets/icon-check.svg"
+
 
 const MainContent = () => {
     const [amount, setAmount] = useState("89,914")
@@ -67,13 +71,9 @@ const MainContent = () => {
                 return prevAmount
             }
         })
-
         setBackers((prevBackers) => (parseInt(prevBackers.replace(/,/g, "")) + 1).toLocaleString())
-
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-
 
     const CompleteModal = () => {
         setIsCompleted(false)
@@ -84,11 +84,10 @@ const MainContent = () => {
         }
     }
 
-
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
-
             <div className='w-11/12  relative -top-16' >
+
                 <div className='text-center bg-white flex flex-col items-center mb-4 rounded-lg'>
                     <img
                         src={logo}
@@ -96,45 +95,18 @@ const MainContent = () => {
                         className='relative -top-6 '
                     />
                     <h2 className='text-2xl w-4/5 font-bold mb-4'>Mastercraft Bamboo Monitor Riser </h2>
-                    <p className='mb-3 text-dark-gray'>
-                        A beautiful & handcrafted monitor stand to reduce neck and eye strain.
-                    </p>
+                    <p className='mb-3 text-dark-gray'> A beautiful & handcrafted monitor stand to reduce neck and eye strain.</p>
                     <div className='flex items-center gap-2 mb-8'>
                         <StyledButton
                             content="Back this project"
                             onClick={openModal}
                         />
-
-
-                        <img
-                            src={bookmark}
-                            alt="bookmark"
-                        />
-
+                        <img src={bookmark} alt="bookmark" />
                     </div>
                 </div>
 
-                <div className='flex flex-col bg-white px-3 mb-4 rounded-lg'>
-                    <div className='text-center py-5'>
-                        <div className='mb-4'>
-                            <h2 className='text-2xl font-bold'>{amount}</h2>
-                            <p className='text-dark-gray text-sm mb-4'>of $100,000 backed</p>
-                            <hr className='w-1/5 ml-auto mr-auto text-dark-gray' />
-                        </div>
-                        <div className='mb-4'>
-                            <h2 className='text-2xl font-bold'>{backers}</h2>
-                            <p className='text-dark-gray text-sm mb-4'>total backers</p>
-                            <hr className='w-1/5 ml-auto mr-auto text-dark-gray' />
-                        </div>
-                        <div className='mb-4'>
-                            <h2 className='text-2xl font-bold'>56</h2>
-                            <p className='text-dark-gray text-sm'>days left</p>
-                        </div>
-                        <div className="h-2 bg-dark-gray rounded-full overflow-hidden">
-                            <div className='progress-bar'></div>
-                        </div>
-                    </div>
-                </div>
+                <StatsDisplay amount={amount} backers={backers} daysLeft={56} />
+
 
                 <div className='bg-white p-6 rounded-lg'>
                     <h2 className='font-bold text-xl mb-4'>About this project</h2>
@@ -147,291 +119,93 @@ const MainContent = () => {
                         to allow notepads, pens, and USB sticks to be stored under the stand.
                     </p>
 
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                        <h3 className='font-bold mb-0.5'> Bamboo Stand</h3>
-                        <h3 className='text-moderate-cyan mb-6'>Pledge $25 or more</h3>
-                        <p className='text-dark-gray mb-6'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-                            you'll be added to a special Backer member list
-                        </p>
-                        <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-                        <StyledButton
-                            content="Select Reward"
-                            onClick={selectBambooStand}
-                        />
-                    </div>
+                    <RewardOption
+                        title={"Bamboo Stand"}
+                        pledge={25}
+                        description={"You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you'll be added to a special Backer member list"}
+                        leftAmount={101}
+                        onSelect={selectBambooStand}
+                        isActive={true}
+                    />
 
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                        <h3 className='font-bold mb-0.5'> Black Edition Stand</h3>
-                        <h3 className='text-moderate-cyan mb-6'>Pledge $75 or more</h3>
-                        <p className='text-dark-gray mb-6'>  You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-                            member list. Shipping is included.
-                        </p>
-                        <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                        <StyledButton
-                            content="Select Reward"
-                            onClick={selectBlackEdition}
-                        />
-                    </div>
+                    <RewardOption
+                        title={"Black Edition Stand"}
+                        pledge={75}
+                        description={"You get a Black Special Edition computer stand and a personal thank you. You'll be added to our Backer member list. Shipping is included."}
+                        leftAmount={64}
+                        onSelect={selectBlackEdition}
+                        isActive={true}
+                    />
 
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6 opacity-50'>
-                        <h3 className='font-bold mb-0.5'> Mahogany Special Edition</h3>
-                        <h3 className='text-moderate-cyan mb-6'>Pledge $200 or more</h3>
-                        <p className='text-dark-gray mb-6'>  You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-                            to our Backer member list. Shipping is included.
-                        </p>
-                        <p className='flex gap-2 items-center mb-6'><span className='text-3xl font-bold'>0</span><span className='text-dark-gray'> left</span></p>
-                        <button className='bg-dark-gray rounded-3xl px-8 py-3 text-white'>  Out of Stock</button>
-
-                    </div>
+                    <RewardOption
+                        title={"Mahogany Special Edition"}
+                        pledge={200}
+                        description={"You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You'll be added to our Backer member list. Shipping is included."}
+                        leftAmount={0}
+                        isActive={false}
+                    />
                 </div>
-            </div>
 
-            {/* SELECTED MODAL */}
-            <div className='overlay-modal' ref={overlayRef}></div>
-            {
-                toggleModal &&
+                {/* SELECT MODAL */}
+                <div className='overlay-modal' ref={overlayRef}></div>
 
-                <div className='absolute bg-white rounded-md top-20 w-11/12 px-4 py-6 z-40'>
-                    <div className='flex justify-between items-center mb-6'>
-                        <h2 className='font-bold text-lg'>Back this project</h2>
-                        <img
-                            src={closeModalIcon}
-                            alt="close-menu-icon"
-                            onClick={() => closeModal()} />
-                    </div>
-                    <p className='text-dark-gray mb-4'> Want to support us in bringing Mastercraft Bamboo
-                        Monitor Riser out in the world?
-                    </p>
-
-
-
-
-
-                    {selectedModal === "Pledge with no reward" ?
-                        (
-                            <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
-                                <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
-                                    <input
-                                        type="radio"
-                                        name="selectedModal"
-                                        value="Pledge with no reward"
-                                        checked={selectedModal === "Pledge with no reward"}
-                                        onChange={() => setSelectedModal("Pledge with no reward")}
-                                    />
-                                    <h3 className='font-bold'>Pledge with no reward</h3>
-                                </div>
-                                <p className='text-dark-gray mb-6 px-5'> Choose to support us without a reward if you simply believe in our project. As a backer,
-                                    you will be signed up to receive product updates via email.
-                                </p>
-
-                                <hr className='text-dark-gray mb-6' />
-                                <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
-
-                                <div className=' relative flex justify-between items-center mb-4 px-5'>
-                                    <div className='absolute left-10 text-dark-gray'>$</div>
-                                    <input
-                                        type="text"
-                                        className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
-                                        value={0}
-                                        readOnly
-                                    />
-                                    <StyledButton
-                                        content="Continue"
-                                        onClick={SelectModalEnd}
-                                    />
-                                </div>
-
-                            </div>
-                        ) :
-                        (
-                            <div className='px-5 py-8 border border-dark-gray border-opacity-50 rounded-lg mb-4'>
-                                <div className='flex gap-5 items-center mb-8'>
-                                    {/* <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div> */}
-                                    <input
-                                        type="radio"
-                                        name="selectedModal"
-                                        value="Pledge with no reward"
-                                        checked={selectedModal === "Pledge with no reward"}
-                                        onChange={() => setSelectedModal("Pledge with no reward")}
-                                    />
-                                    <h3 className='font-bold'>Pledge with no reward</h3>
-                                </div>
-                                <p className='text-dark-gray w-11/12'> Choose to support us without a reward if you simply believe in our project. As a backer,
-                                    you will be signed up to receive product updates via email.
-                                </p>
-                            </div>
-                        )}
-
-
-
-
-
-                    {selectedModal === "Bamboo Stand" ?
-                        (
-                            <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
-                                <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
-                                    <input
-                                        type="radio"
-                                        name="selectedModal"
-                                        value="Bamboo Stand"
-                                        checked={selectedModal === "Bamboo Stand"}
-                                        onChange={() => setSelectedModal("Bamboo Stand")}
-                                    />
-                                    <div>
-                                        <h3 className='font-bold'> Bamboo Stand</h3>
-                                        <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
-                                    </div>
-                                </div>
-
-                                <p className='text-dark-gray mb-6 px-5'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-                                    you'll be added to a special Backer member list
-                                </p>
-                                <p className='flex gap-2 items-center mb-2 px-5'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-
-                                <hr className='text-dark-gray mb-6' />
-                                <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
-
-                                <div className=' relative flex justify-between items-center mb-4 px-5'>
-                                    <div className='absolute left-10 text-dark-gray'>$</div>
-                                    <input
-                                        type="text"
-                                        className='border border-dark-gray  font-bold w-32 h-10 rounded-3xl px-9'
-                                        value={pledge}
-                                        onChange={(e) => setPledge(e.target.value)}
-                                    />
-                                    <StyledButton
-                                        content="Continue"
-                                        onClick={SelectModalEnd}
-                                    />
-                                </div>
-                            </div>
-                        ) :
-                        (
-                            <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                                <div className='flex gap-5 items-center mb-8'>
-                                    <input
-                                        type="radio"
-                                        name="selectedModal"
-                                        value="Bamboo Stand"
-                                        checked={selectedModal === "Bamboo Stand"}
-                                        onChange={() => setSelectedModal("Bamboo Stand")}
-                                    />
-                                    <div>
-                                        <h3 className='font-bold'> Bamboo Stand</h3>
-                                        <h3 className='text-moderate-cyan'>Pledge $25 or more</h3>
-                                    </div>
-                                </div>
-
-                                <p className='text-dark-gray mb-6'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-                                    you'll be added to a special Backer member list
-                                </p>
-                                <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>101</span><span className='text-dark-gray'> left</span></p>
-                            </div>
-                        )}
-
-                    {
-                        selectedModal === "Black Edition Stand" ?
-                            (
-                                <div className='border-solid border-2  border-dark-cyan rounded-lg mb-6'>
-                                    <div className='flex gap-5 items-center px-5 pt-5 mb-8'>
-                                        <input
-                                            type="radio"
-                                            name="selectedModal"
-                                            value="Bamboo Stand"
-                                            checked={selectedModal === "Black Edition Stand"}
-                                            onChange={() => setSelectedModal("Black Edition Stand")}
-                                        />
-                                        <div>
-                                            <h3 className='font-bold'> Black Edition Stand</h3>
-                                            <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
-                                        </div>
-                                    </div>
-
-                                    <p className='text-dark-gray mb-6 px-5'> You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-                                        you'll be added to a special Backer member list
-                                    </p>
-                                    <p className='flex gap-2 items-center mb-2 px-5'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-
-                                    <hr className='text-dark-gray mb-6' />
-                                    <div className='text-center mb-4 text-dark-gray'>Enter your pledge</div>
-
-                                    <div className=' relative flex justify-between items-center mb-4 px-5'>
-                                        <div className='absolute left-10 text-dark-gray'>$</div>
-                                        <input
-                                            type="text"
-                                            className='border border-dark-gray font-bold w-32 h-10 rounded-3xl px-9'
-                                            value={pledge}
-                                            onChange={(e) => setPledge(e.target.value)}
-                                        />
-                                        <StyledButton
-                                            content="Continue"
-                                            onClick={SelectModalEnd}
-                                        />
-                                    </div>
-                                </div>
-                            )
-                            :
-                            (
-                                <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6'>
-                                    <div className='flex gap-5 items-center mb-8'>
-                                        <input
-                                            type="radio"
-                                            name="selectedModal"
-                                            value="Black Edition Stand"
-                                            checked={selectedModal === "Black Edition Stand"}
-                                            onChange={() => setSelectedModal("Black Edition Stand")}
-                                        />
-                                        <div>
-                                            <h3 className='font-bold'>  Black Edition Stand</h3>
-                                            <h3 className='text-moderate-cyan'>Pledge $75 or more</h3>
-                                        </div>
-                                    </div>
-
-                                    <p className='text-dark-gray mb-6'>You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-                                        member list. Shipping is included.
-                                    </p>
-                                    <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>64</span><span className='text-dark-gray'> left</span></p>
-                                </div>
-                            )
-                    }
-
-                    <div className='border-solid border border-opacity-50 border-dark-gray p-5 rounded-lg mb-6 opacity-50'>
-                        <div className='flex gap-5 items-center mb-8'>
-                            <div className='w-6 h-6 rounded-full border border-dark-gray border-opacity-50'></div>
-                            <div>
-                                <h3 className='font-bold'>  Mahogany Special Edition</h3>
-                                <h3 className='text-moderate-cyan'>Pledge $200 or more</h3>
-                            </div>
+                {toggleModal &&
+                    <div className='absolute bg-white rounded-md -top-20 px-4 py-6 z-40'>
+                        <div className='flex justify-between items-center mb-6'>
+                            <h2 className='font-bold text-lg'>Back this project</h2>
+                            <img
+                                src={closeModalIcon}
+                                alt="close-menu-icon"
+                                onClick={() => closeModal()} />
                         </div>
-
-                        <p className='text-dark-gray mb-6'>You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-                            to our Backer member list. Shipping is included.
+                        <p className='text-dark-gray mb-4'> Want to support us in bringing Mastercraft Bamboo
+                            Monitor Riser out in the world?
                         </p>
-                        <p className='flex gap-2 items-center mb-2'><span className='text-3xl font-bold'>0</span><span className='text-dark-gray'> left</span></p>
+
+                        <SelectModal
+                            selectedModal={selectedModal}
+                            Modal={"Pledge with no reward"}
+                            description={"Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."}
+                            onModalChange={() => setSelectedModal("Pledge with no reward")}
+                            name="selectedModal"
+                            pledgeAmount={0}
+                            pledge={pledge}
+                            onSelect={SelectModalEnd}
+                            onPledgeChange={(value) => setPledge(value)}
+                        />
+
+                        <SelectModal
+                            selectedModal={selectedModal}
+                            Modal={"Bamboo Stand"}
+                            description={"You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you'll be added to a special Backer member list."}
+                            onModalChange={() => setSelectedModal("Bamboo Stand")}
+                            name="selectedModal"
+                            pledgeAmount={25}
+                            pledge={pledge}
+                            leftAmount={101}
+                            onSelect={SelectModalEnd}
+                            onPledgeChange={(value) => setPledge(value)}
+                        />
+
+                        <SelectModal
+                            selectedModal={selectedModal}
+                            Modal={"Black Edition Stand"}
+                            description={" You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."}
+                            onModalChange={() => setSelectedModal("Black Edition Stand")}
+                            name="selectedModal"
+                            pledgeAmount={75}
+                            pledge={pledge}
+                            leftAmount={64}
+                            onSelect={SelectModalEnd}
+                            onPledgeChange={(value) => setPledge(value)}
+                        />
+
                     </div>
 
-                </div>
-            }
+                }
 
-            {isCompleted && (
-                <div className='bg-white flex flex-col items-center px-4 py-8 w-11/12 rounded-xl absolute top-40 z-50'>
-                    <img
-                        src={iconCheck}
-                        alt="icon-check"
-                        className='mb-6'
-                    />
-                    <div className='font-bold text-xl mb-6'>Thanks for your support!</div>
-                    <p className='mb-6 text-center text-dark-gray'>  Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get
-                        an email once our campaign is completed.
-                    </p>
-                    <StyledButton
-                        content="Got it !"
-                        onClick={CompleteModal}
-                    />
-                </div>
-            )
-
-            }
+                {isCompleted && <ThankYouModal onClick={CompleteModal} />}
+            </div>
         </main >
     )
 }
