@@ -1,6 +1,7 @@
 import React from 'react'
 
 const StatsDisplay = ({ amount, backers, daysLeft }) => {
+    let percentageAchieved = (parseInt(amount?.replace(/,/g, "")) / 100000) * 100
     return (
         <div className='flex flex-col bg-white px-3 mb-4 rounded-lg'>
             <div className='text-center py-5'>
@@ -19,7 +20,7 @@ const StatsDisplay = ({ amount, backers, daysLeft }) => {
                     <p className='text-dark-gray text-sm'>days left</p>
                 </div>
                 <div className="h-2 bg-dark-gray rounded-full overflow-hidden">
-                    <div className='progress-bar'></div>
+                    <div className='progress-bar' style={{ width: `${percentageAchieved}%` }}></div>
                 </div>
             </div>
         </div>

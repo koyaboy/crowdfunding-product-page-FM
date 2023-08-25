@@ -1,7 +1,7 @@
-// bookmarks, active states, progress bar, desktop design
+// bookmarks, Mahogany addition in selectModal, active states, desktop design
 
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import StatsDisplay from '../components/StatsDisplay'
 import RewardOption from '../components/RewardOption'
@@ -10,19 +10,33 @@ import ThankYouModal from '../components/ThankYouModal'
 import StyledButton from '../components/StyledButton'
 
 import logo from "../assets/logo-mastercraft.svg"
-import bookmark from "../assets/icon-bookmark.svg"
-import closeModalIcon from "../assets/icon-close-modal.svg"
+import bookmarkIcon from "../assets/icon-bookmark.svg"
+// import closeModalIcon from "../assets/icon-close-modal.svg"
+
+import { ReactComponent as CloseModalIcon } from "../assets/icon-close-modal.svg"
+import { ReactComponent as BookmarkIcon } from "../assets/icon-bookmark.svg"
 
 
 const MainContent = () => {
     const [amount, setAmount] = useState("89,914")
     const [backers, setBackers] = useState("5,007")
+    const [bookmark, setBookmark] = useState(false)
     const [toggleModal, setToggleModal] = useState(false)
     const [selectedModal, setSelectedModal] = useState("")
     const [isCompleted, setIsCompleted] = useState(false)
     const [pledge, setPledge] = useState("")
 
     const overlayRef = useRef(null)
+
+
+    // useEffect(() => {
+    //     percentageAchieved = parseInt(amount?.replace(/,/g, ""))
+    // }, [amount])
+
+
+    const toggleBookmark = () => {
+        setBookmark((prevBookmark) => !prevBookmark)
+    }
 
     const openModal = () => {
         setToggleModal(true)
@@ -101,7 +115,10 @@ const MainContent = () => {
                             content="Back this project"
                             onClick={openModal}
                         />
-                        <img src={bookmark} alt="bookmark" />
+                        <div className='relative cursor-pointer' onClick={toggleBookmark}>
+                            {bookmark ? <BookmarkIcon className="selectBookmark" /> : <BookmarkIcon />}
+                        </div>
+
                     </div>
                 </div>
 
@@ -153,10 +170,8 @@ const MainContent = () => {
                     <div className='absolute bg-white rounded-md -top-20 px-4 py-6 z-40'>
                         <div className='flex justify-between items-center mb-6'>
                             <h2 className='font-bold text-lg'>Back this project</h2>
-                            <img
-                                src={closeModalIcon}
-                                alt="close-menu-icon"
-                                onClick={() => closeModal()} />
+
+                            <CloseModalIcon className="close-modal-icon cursor-pointer" onClick={() => closeModal()} />
                         </div>
                         <p className='text-dark-gray mb-4'> Want to support us in bringing Mastercraft Bamboo
                             Monitor Riser out in the world?
@@ -168,7 +183,6 @@ const MainContent = () => {
                             description={"Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."}
                             onModalChange={() => setSelectedModal("Pledge with no reward")}
                             name="selectedModal"
-                            pledgeAmount={0}
                             pledge={pledge}
                             onSelect={SelectModalEnd}
                             onPledgeChange={(value) => setPledge(value)}
@@ -185,6 +199,7 @@ const MainContent = () => {
                             leftAmount={101}
                             onSelect={SelectModalEnd}
                             onPledgeChange={(value) => setPledge(value)}
+                            isOutOfStock={false}
                         />
 
                         <SelectModal
@@ -198,14 +213,30 @@ const MainContent = () => {
                             leftAmount={64}
                             onSelect={SelectModalEnd}
                             onPledgeChange={(value) => setPledge(value)}
+                            isOutOfStock={false}
+                        />
+
+                        <SelectModal
+                            selectedModal={selectedModal}
+                            Modal={"Test"}
+                            description={" You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."}
+                            onModalChange={() => setSelectedModal("Black Edition Stand")}
+                            name="selectedModal"
+                            pledgeAmount={75}
+                            pledge={pledge}
+                            leftAmount={0}
+                            onSelect={SelectModalEnd}
+                            onPledgeChange={(value) => setPledge(value)}
+                            isOutOfStock={true}
                         />
 
                     </div>
 
                 }
 
-                {isCompleted && <ThankYouModal onClick={CompleteModal} />}
+
             </div>
+            {isCompleted && <ThankYouModal onClick={CompleteModal} />}
         </main >
     )
 }

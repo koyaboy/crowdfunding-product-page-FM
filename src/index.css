@@ -37,3 +37,61 @@
 .overlay-modal.active {
     z-index: 30;
 }
+
+/* CustomRadio.css */
+.radio-custom {
+    appearance: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-custom::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: hsl(176, 50%, 47%);
+}
+
+.radio-custom:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-option:hover .radio-custom {
+    border-color: hsl(176, 50%, 47%);
+}
+
+.modal-option:hover h3 {
+    color: hsl(176, 50%, 47%);
+}
+
+.selectBookmark path {
+    fill: white;
+}
+
+.selectBookmark circle {
+    fill: hsl(176, 50%, 47%);
+}
+
+.close-modal-icon path:hover {
+    opacity: 1;
+}
+
+.modal-selected {
+    border: 2px solid hsl(176, 50%, 47%)
+}
+
+.out-of-stock {
+    opacity: 0.2;
+}
