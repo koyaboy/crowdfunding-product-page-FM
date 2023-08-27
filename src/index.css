@@ -7,8 +7,15 @@
     font-size: 16px;
 }
 
-.header-image {
+.header-mobile-image {
     background-image: url("../src/assets/image-hero-mobile.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header-desktop-image {
+    background-image: url("../src/assets/image-hero-desktop.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -81,7 +88,7 @@
 }
 
 .selectBookmark circle {
-    fill: hsl(176, 50%, 47%);
+    fill: hsl(176, 72%, 28%)
 }
 
 .close-modal-icon path:hover {

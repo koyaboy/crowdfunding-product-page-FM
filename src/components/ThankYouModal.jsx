@@ -5,7 +5,7 @@ import iconCheck from "../assets/icon-check.svg"
 
 const ThankYouModal = ({ onClick }) => {
     return (
-        <div className='bg-white flex flex-col items-center px-4 py-8 rounded-xl absolute top-40 z-50 w-11/12'>
+        <div className='bg-white flex flex-col items-center px-4 py-8 rounded-xl absolute top-36 z-50 w-9/12 md:px-14'>
             <img
                 src={iconCheck}
                 alt="icon-check"

@@ -22,7 +22,7 @@ const Header = () => {
     return (
         <>
             <div className='overlay-header' ref={overlayRef}></div>
-            <header className='header-image flex flex-col h-80  px-4  py-6'>
+            <header className={`${window.innerWidth >= "768px" ? "header-mobile-image" : "header-desktop-image"}  flex flex-col h-80  px-4 py-6 md:px-20 `}>
                 <div className='flex justify-between items-center mb-11 z-20'>
                     <img
                         src={logo}
@@ -35,6 +35,7 @@ const Header = () => {
                                     src={closeMenuIcon}
                                     alt="close-menu"
                                     onClick={() => closeMenu()}
+                                    className='md:hidden'
                                 />
                             ) :
                             (
@@ -43,12 +44,27 @@ const Header = () => {
                                         src={hamburgerMenu}
                                         alt="hamburger-menu"
                                         onClick={() => openMenu()}
+                                        className='md:hidden'
                                     />
 
 
                                 </>
                             )
                     }
+
+                    <nav className="hidden md:block">
+                        <ul className='flex gap-8 text-white'>
+                            <li>
+                                <a href="/" className='font-medium text-base'>About</a>
+                            </li>
+                            <li>
+                                <a href="/" className='font-medium text-base'>Discover</a>
+                            </li>
+                            <li>
+                                <a href="/" className='font-medium text-base'>Get Started</a>
+                            </li>
+                        </ul>
+                    </nav>
 
                 </div>
 
@@ -72,7 +88,7 @@ const Header = () => {
                 }
 
 
-            </header>
+            </header >
         </>
     )
 }
