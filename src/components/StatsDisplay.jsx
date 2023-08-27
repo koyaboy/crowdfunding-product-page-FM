@@ -5,7 +5,7 @@ const StatsDisplay = ({ amount, backers, daysLeft }) => {
     return (
         <div className='flex flex-col bg-white px-3 mb-4 rounded-lg'>
             <div className='text-center py-5 md:flex flex-row gap-10 '>
-                <div className='mb-4 md:mb-0 mr-3'>
+                <div className='mb-4 md:mb-0 md:mr-3'>
                     <h2 className='text-2xl font-bold'>${amount}</h2>
                     <p className='text-dark-gray text-sm mb-4 relative md:left-5'>of $100,000 backed</p>
                 </div>
@@ -15,7 +15,7 @@ const StatsDisplay = ({ amount, backers, daysLeft }) => {
 
 
 
-                <div className='mb-4 md:mb-0 mr-8'>
+                <div className='mb-4 md:mb-0 md:mr-8'>
                     <h2 className='text-2xl font-bold mt-2 md:mt-0'>{backers}</h2>
                     <p className='text-dark-gray text-sm mb-4 relative md:left-2.5'>total backers</p>
                 </div>

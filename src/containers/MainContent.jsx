@@ -93,7 +93,7 @@ const MainContent = () => {
     return (
         <main className='flex flex-col items-center bg-opacity-10 bg-dark-gray'>
 
-            <div className='w-11/12 relative -top-16 md:w-7/12'>
+            <div className='w-11/12 relative -top-16 md:w-8/12'>
 
                 <div className='text-center bg-white flex flex-col items-center mb-4 rounded-lg px-5 md:px-10'>
                     <img
